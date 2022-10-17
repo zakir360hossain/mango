@@ -17,13 +17,13 @@ def home():
 
 
 @app.route("/category/<category>", methods=["GET"])
-def getCategoryData(category):
+def getcategoryData(category):
     client = connect()
     pool = client.get_database("pool")
     mango_c = pool.mango  # mango collection
     query = mango_c.find_one({"category": category})
     client.close()
-    return {"category": query["category"], "objects": query["objects"]}
+    return {"category": query["category"], "topics": query["topics"]}
 
 
 if __name__ == "__main__":

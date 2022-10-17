@@ -16,14 +16,14 @@ def home():
     return "Mango!!!!"
 
 
-@app.route("/category/<category>", methods=["GET"])
-def getCategoryData(category):
+@app.route("/subject/<subject>", methods=["GET"])
+def getSubjectData(subject):
     client = connect()
     pool = client.get_database("pool")
     mango_c = pool.mango  # mango collection
-    query = mango_c.find_one({"category": category})
+    query = mango_c.find_one({"subject": subject})
     client.close()
-    return {"category": query["category"], "objects": query["objects"]}
+    return {"subject": query["subject"], "topics": query["topics"]}
 
 
 if __name__ == "__main__":

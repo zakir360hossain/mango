@@ -28,3 +28,5 @@ def getCategoryData(category):
 
 if __name__ == "__main__":
     app.run(debug=False)
+
+words['objects']

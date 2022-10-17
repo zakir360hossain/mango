@@ -24,4 +24,4 @@ def createSubject(category, objects):
 
 
 if __name__ == "__main__":
-    createSubject("words")
+    # createSubject("words")

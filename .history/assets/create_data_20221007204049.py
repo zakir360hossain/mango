@@ -7,17 +7,17 @@ def connect():
     return pymongo.MongoClient(connection_url)
 
 
-def createSubject(category, objects):
+def createSubject(category):
     client = connect()
     pool = client.get_database("pool")
-    # words_c = pool.words
-    # word_sets = words_c.find({})
-    # words = word_sets[0]["words"] + word_sets[1]["words"]
-    # objects = []
-    # for word in words:
-    #     topic = {"object": word["word"], "clue": word["definition"]}
-    #     objects.append(topic)
-    # print(objects[0])
+    words_c = pool.words
+    word_sets = words_c.find({})
+    words = word_sets[0]["words"] + word_sets[1]["words"]
+    objects = []
+    for word in words:
+        topic = {"object": word["word"], "clue": word["definition"]}
+        objects.append(topic)
+    print(objects[0])
     mango_c = pool.mango
     mango_c.insert_one({"category": category, "objects": objects})
     client.close()
