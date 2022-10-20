@@ -35,34 +35,8 @@ body {
 .correct {
   background-color: green;
 }
-
-@-o-keyframes fadeIt {
-  0% {
-    background-color: #ffffff;
-  }
-  50% {
-    background-color: #ad301b;
-  }
-  100% {
-    background-color: #ffffff;
-  }
-}
-@keyframes fadeIt {
-  0% {
-    background-color: #ffffff;
-  }
-  50% {
-    background-color: #ad301b;
-  }
-  100% {
-    background-color: #ffffff;
-  }
-}
-
 .pulse {
-  background-image: none !important;
-  -o-animation: fadeIt 5s ease-in-out;
-  animation: fadeIt 5s ease-in-out;
+  background-color: #ad310b;
 }
 
 #clue_board {

@@ -28,6 +28,7 @@ fetch("http://127.0.0.1:5000/category/words")
     pairs = [];
     current = null;
     Array.from(objects).forEach((field, index) => {
+      console.log(response.objects);
       l = response.objects.length;
       object_clue =
         response.objects[Math.floor(Math.random() * (l - 0 + 1)) + 0];
@@ -51,8 +52,9 @@ fetch("http://127.0.0.1:5000/category/words")
         if (e.target.innerText === current.object) {
           $(e.target).addClass("correct");
           $(e.target).css({ cursor: "not-allowed" });
-        } else {
-          $(e.target).addClass("pulse");
+        }
+        else{
+          $(e.target).addClass("not-correct")
         }
         changeNoneCorrectCursor("not-allowed");
       });

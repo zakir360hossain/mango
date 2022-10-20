@@ -2,13 +2,9 @@ const objects = document.getElementsByClassName("object");
 const clue_container = document.getElementById("clue");
 const next_clue = document.getElementById("next_clue");
 
-function changeNoneCorrectCursor(state) {
+function changeCursor(state) {
   $(document).ready(() => {
-    Array.from(objects).forEach((element) => {
-      if (!$(element).hasClass("correct")) {
-        $(element).css({ cursor: state });
-      }
-    });
+    $(".object").css({ cursor: state });
   });
 }
 
@@ -17,7 +13,7 @@ function placeNextClue(clue) {
   $(document).ready(() => {
     $("#clue").text(clue);
   });
-  changeNoneCorrectCursor("pointer");
+  changeCursor("pointer");
 }
 
 fetch("http://127.0.0.1:5000/category/words")
@@ -28,6 +24,7 @@ fetch("http://127.0.0.1:5000/category/words")
     pairs = [];
     current = null;
     Array.from(objects).forEach((field, index) => {
+      console.log(response.objects);
       l = response.objects.length;
       object_clue =
         response.objects[Math.floor(Math.random() * (l - 0 + 1)) + 0];
@@ -48,13 +45,12 @@ fetch("http://127.0.0.1:5000/category/words")
 
     $(document).ready(() => {
       $(".object").click((e) => {
-        if (e.target.innerText === current.object) {
-          $(e.target).addClass("correct");
-          $(e.target).css({ cursor: "not-allowed" });
-        } else {
-          $(e.target).addClass("pulse");
+        if (e.target.innerText == current.object){
+          $(e.target).addClass("correct")
+          $(e.target).css("display")
         }
-        changeNoneCorrectCursor("not-allowed");
+        $(e.target).addClass("incorrect");
+        changeCursor("not-allowed");
       });
     });
   });

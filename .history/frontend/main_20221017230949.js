@@ -2,22 +2,33 @@ const objects = document.getElementsByClassName("object");
 const clue_container = document.getElementById("clue");
 const next_clue = document.getElementById("next_clue");
 
-function changeNoneCorrectCursor(state) {
-  $(document).ready(() => {
-    Array.from(objects).forEach((element) => {
-      if (!$(element).hasClass("correct")) {
-        $(element).css({ cursor: state });
-      }
+$(document).ready(function () {
+  // sending a connect request to the server.
+  var socket = io.connect("http://localhost:5000");
+  $("#next_clue").click((e) => {
+    socket.emit("next clue clicked", {
+      // who: $(this).attr("id"),
+      // data: $(this).val(),
+      msg: "the next clue button has been clicked, send another clue!",
     });
+
+    socket.on("after connect", function (msg) {
+      console.log("After connect", msg);
+    });
+  });
+});
+
+function changeCursor(state) {
+  $(document).ready(() => {
+    $(".object").css({ cursor: state });
   });
 }
 
 function placeNextClue(clue) {
-  console.log(clue);
   $(document).ready(() => {
     $("#clue").text(clue);
   });
-  changeNoneCorrectCursor("pointer");
+  changeCursor("pointer");
 }
 
 fetch("http://127.0.0.1:5000/category/words")
@@ -40,7 +51,6 @@ fetch("http://127.0.0.1:5000/category/words")
     $(document).ready(() => {
       // checkWinning()
       $("#next_clue").click((e) => {
-        console.log("clicked");
         current = pairs[Math.floor(Math.random() * (25 - 0 + 1)) + 0];
         placeNextClue(current.clue);
       });
@@ -48,13 +58,10 @@ fetch("http://127.0.0.1:5000/category/words")
 
     $(document).ready(() => {
       $(".object").click((e) => {
-        if (e.target.innerText === current.object) {
-          $(e.target).addClass("correct");
-          $(e.target).css({ cursor: "not-allowed" });
-        } else {
-          $(e.target).addClass("pulse");
-        }
-        changeNoneCorrectCursor("not-allowed");
+        e.target.innerText == current.object
+          ? $(e.target).addClass("correct")
+          : $(e.target).addClass("incorrect");
+        changeCursor("not-allowed");
       });
     });
   });
