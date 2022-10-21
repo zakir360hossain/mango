@@ -50,12 +50,11 @@ fetch("http://127.0.0.1:5000/category/words")
       $(".object").click((e) => {
         if (e.target.innerText === current.object) {
           $(e.target).addClass("correct");
-          $(e.target).css({ pointerEvents: "none" });
+          $(e.target).css({ pointerEvents: "n" });
         } else {
           $(e.target).addClass("pulse");
         }
         changeNoneCorrectCursor("none");
-
       });
     });
   });

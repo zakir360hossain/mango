@@ -40,7 +40,7 @@ body {
     background-color: #f15304;
   }
   100% {
-    background-color: #e8ce05;
+    background-color: #ffffff;
   }
 }
 
@@ -49,6 +49,7 @@ body {
 }
 
 .pulse {
+  background-image: none !important;
   /* -o-animation: fadeIt 1s ease-in-out; */
   animation: fadeIt 1s ease-in-out;
 }

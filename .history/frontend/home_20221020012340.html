@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mango</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+        integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+        crossorigin="anonymous"></script>
+    <script defer src="./main.js"></script>
+</head>
+
+<body>
+    <div id="clue_board">
+        <div id="clue">
+        </div>
+        <button id="next_clue">Next</button>
+    </div>
+    <div class="card">
+        <div class="row" id="row1">
+            <button class="object">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+        </div>
+        <div class="row" id="row2">
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+        </div>
+        <div class="row" id="row3">
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+        </div>
+        <div class="row" id="row4">
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+        </div>
+        <div class="row" id="row5">
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+            <button class="object"></button>
+        </div>
+    </div>
+</body>
+
+</html>

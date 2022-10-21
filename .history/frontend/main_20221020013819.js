@@ -6,7 +6,7 @@ function changeNoneCorrectCursor(state) {
   $(document).ready(() => {
     Array.from(objects).forEach((element) => {
       if (!$(element).hasClass("correct")) {
-        $(element).css({ "pointer-events": state });
+        $(element).css({ cursor: state });
       }
     });
   });
@@ -17,7 +17,7 @@ function placeNextClue(clue) {
   $(document).ready(() => {
     $("#clue").text(clue);
   });
-  changeNoneCorrectCursor("auto");
+  changeNoneCorrectCursor("pointer");
 }
 
 fetch("http://127.0.0.1:5000/category/words")
@@ -48,14 +48,14 @@ fetch("http://127.0.0.1:5000/category/words")
 
     $(document).ready(() => {
       $(".object").click((e) => {
+        $(".object").removeClass("pulse");
         if (e.target.innerText === current.object) {
           $(e.target).addClass("correct");
-          $(e.target).css({ pointerEvents: "none" });
+          $(e.target).css({ cursor: "none" });
         } else {
           $(e.target).addClass("pulse");
         }
         changeNoneCorrectCursor("none");
-
       });
     });
   });

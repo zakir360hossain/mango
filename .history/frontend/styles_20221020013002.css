@@ -32,25 +32,38 @@ body {
   font-size: 15px;
 }
 
-@keyframes fadeIt {
+
+@-o-keyframes fadeIt {
   0% {
-    background-color: #f0bf0d;
+    background-color: #ffffff;
   }
-  50% {
-    background-color: #f15304;
+  0% {
+    background-color: #ad301b;
   }
   100% {
-    background-color: #e8ce05;
+    background-color: #ffffff;
+  }
+}
+@keyframes fadeIt {
+  0% {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: #ad301b;
+  }
+  100% {
+    background-color: #ffffff;
   }
 }
 
-.correct {
-  background-color: purple;
+.check {
+  display: none;
 }
 
 .pulse {
-  /* -o-animation: fadeIt 1s ease-in-out; */
-  animation: fadeIt 1s ease-in-out;
+  background-image: none !important;
+  -o-animation: fadeIt 5s ease-in-out;
+  animation: fadeIt 5s ease-in-out;
 }
 
 #clue_board {

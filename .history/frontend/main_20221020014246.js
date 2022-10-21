@@ -17,7 +17,7 @@ function placeNextClue(clue) {
   $(document).ready(() => {
     $("#clue").text(clue);
   });
-  changeNoneCorrectCursor("auto");
+  changeNoneCorrectCursor("pointer");
 }
 
 fetch("http://127.0.0.1:5000/category/words")
@@ -47,15 +47,15 @@ fetch("http://127.0.0.1:5000/category/words")
     });
 
     $(document).ready(() => {
+      $(".object").removeClass("pulse");
       $(".object").click((e) => {
         if (e.target.innerText === current.object) {
           $(e.target).addClass("correct");
-          $(e.target).css({ pointerEvents: "none" });
+          $(e.target).css({ cursor: "no" });
         } else {
           $(e.target).addClass("pulse");
         }
-        changeNoneCorrectCursor("none");
-
+        changeNoneCorrectCursor("no");
       });
     });
   });

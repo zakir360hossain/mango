@@ -47,6 +47,7 @@ fetch("http://127.0.0.1:5000/category/words")
     });
 
     $(document).ready(() => {
+      $
       $(".object").click((e) => {
         if (e.target.innerText === current.object) {
           $(e.target).addClass("correct");
@@ -55,7 +56,6 @@ fetch("http://127.0.0.1:5000/category/words")
           $(e.target).addClass("pulse");
         }
         changeNoneCorrectCursor("none");
-
       });
     });
   });

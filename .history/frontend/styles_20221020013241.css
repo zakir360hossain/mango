@@ -37,10 +37,10 @@ body {
     background-color: #f0bf0d;
   }
   50% {
-    background-color: #f15304;
+    background-color: #ad4c1b;
   }
   100% {
-    background-color: #e8ce05;
+    background-color: #ffffff;
   }
 }
 
@@ -49,6 +49,7 @@ body {
 }
 
 .pulse {
+  background-image: none !important;
   /* -o-animation: fadeIt 1s ease-in-out; */
   animation: fadeIt 1s ease-in-out;
 }
