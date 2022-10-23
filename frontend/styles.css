@@ -5,8 +5,8 @@ body {
   height: 80vh;
   width: 80vh;
   display: grid;
-  margin-left: 25%;
-  margin-top: 5%;
+  /* margin-left: 25%; */
+  margin-top: 3%;
   /* border: 2px solid lightseagreen; */
   border-radius: 10px;
 }
@@ -30,6 +30,11 @@ body {
   align-items: center;
   color: black;
   font-size: 15px;
+}
+
+.custom {
+  color: white;
+  font-size:30px;
 }
 
 @keyframes fadeIt {
@@ -58,7 +63,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 125px;
   width: 1000px;
   border: 2px solid white;
 }
@@ -66,10 +71,11 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 60px;
+  height: 100px;
   width: 1000px;
   color: white;
   font-size: 30px;
+
   /* border: 2px solid white; */
 }
 #next_clue {
