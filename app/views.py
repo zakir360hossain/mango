@@ -24,14 +24,13 @@ def home():
 
 @app.route("/home/<category>", methods=["GET"])
 def game(category):
-    pool = client.get_database("pool")
-    mango_c = pool.mango  # mango collection
-    query = mango_c.find_one({"category": category})
-    whole_set = query["objects"]
-    global current_set
-    current_set = whole_set
-    sampled = random.sample(whole_set, 25)
-    return render_template("game.html", data=sampled, current=whole_set[0])
+    # pool = client.get_database("pool")
+    # mango_c = pool.mango  # mango collection
+    # query = mango_c.find_one({"category": category})
+    # whole_set = query["objects"]
+    # global current_set
+    # sampled = random.sample(whole_set, 16)
+    return render_template("waiting.html")
 
 
 @socketio.on("message")

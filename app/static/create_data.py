@@ -1,5 +1,6 @@
 # import json
 import pymongo
+import random
 
 
 def connect():
@@ -14,7 +15,7 @@ def createSubject(category):
     word_sets = words_c.find({})
     words = word_sets[0]["words"] + word_sets[1]["words"]
     objects = []
-    for word in words[:100]:
+    for word in random.sample(words, 300):
         topic = {"object": word["word"], "clue": word["definition"]}
         objects.append(topic)
     mango_c = pool.mango
