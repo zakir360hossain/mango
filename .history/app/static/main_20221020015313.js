@@ -19,6 +19,52 @@ function placeNextClue(clue) {
   });
   changeNoneCorrectCursor("auto");
 }
+//creating a timer
+function startTimer(duration, display){
+  var timer = duration, minutes, seconds;
+  setInterval(function () {
+    minutes = parseInt(timer/60, 10);
+    seconds = parseInt(timer%60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = minutes + ":" + seconds;
+
+// checks correct answer if the guess is made before time runs out --> will set
+//timer to 0 once guess is made + colors the board
+    $(".object").click((e) => {
+
+      if (e.target.innerText === current.object) {
+        $(e.target).addClass("correct");
+        $(e.target).css({ pointerEvents: "none" });
+      } else {
+        $(e.target).addClass("pulse");
+      }
+      changeNoneCorrectCursor("none");
+      timer = 0
+
+    });
+    //if time runs out, cycles to next clue.
+    //code taken from previous next button clicked logic
+    if(--timer < 0){
+      timer = duration;
+      // window.location.href= 'http://www.google.com';
+      changeNoneCorrectCursor("none");
+      current = pairs[Math.floor(Math.random() * (25 - 0 + 1)) + 0];
+      placeNextClue(current.clue);
+    }
+
+  }, 1000);
+}
+
+
+window.onload = function() {
+  var fourtyFiveSeconds = 45,
+    display = document.querySelector('#time');
+  startTimer(fourtyFiveSeconds, display);
+};
+
 
 fetch("http://127.0.0.1:5000/category/words")
   .then(function (response) {
