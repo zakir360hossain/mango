@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 import pymongo
 
@@ -25,6 +25,9 @@ def getCategoryData(category):
     client.close()
     return {"category": query["category"], "objects": query["objects"]}
 
+@app.route("/home.html")
+def get_home():
+    return render_template("home.html")
 
 if __name__ == "__main__":
     app.run(debug=False)
