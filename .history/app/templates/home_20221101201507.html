@@ -68,17 +68,18 @@
         const objects = document.getElementsByClassName("object");
         const clue_container = document.getElementById("clue");
         const next_clue = document.getElementById("next_clue");
-        const socket = io.connect("http://127.0.0.1:5000");
+            const socket = io.connect("http://127.0.0.1:5000");
 
-        socket.on("connect", (msg) =>
-        {
-            console.log("connected!");
-        });
-        socket.emit('arrive', { data: "Hello!" })
+            socket.on("connect", (msg) =>
+            {
+                console.log("connected!");
+            });
+            socket.emit('arrive', { data: "Hello!" })
 
-        socket.on('register', (msg) =>
-        {
-            console.log(msg)
+            socket.on('register', (msg) =>
+            {
+                console.log(msg)
+            })
         })
 
         function changeNoneCorrectCursor(state)
@@ -154,7 +155,13 @@
                 display = document.querySelector("#time");
             startTimer(fourtyFiveSeconds, display);
         };
-        socket.on('startGame', (response) =>
+
+        fetch("http://127.0.0.1:5000/category/words")
+            .then(function (response)
+            {
+                return response.json();
+            })
+            .then((response) =>
             {
                 pairs = [];
                 current = null;

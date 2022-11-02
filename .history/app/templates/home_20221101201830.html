@@ -154,7 +154,16 @@
                 display = document.querySelector("#time");
             startTimer(fourtyFiveSeconds, display);
         };
-        socket.on('startGame', (response) =>
+         socket.on('startGame', () =>
+            {
+                console.log(msg)
+            })
+        fetch("http://127.0.0.1:5000/category/words")
+            .then(function (response)
+            {
+                return response.json();
+            })
+            .then((response) =>
             {
                 pairs = [];
                 current = null;

@@ -154,6 +154,10 @@
                 display = document.querySelector("#time");
             startTimer(fourtyFiveSeconds, display);
         };
+         socket.on('startGame', (response) =>
+            {
+                console.log(msg)
+            })
         socket.on('startGame', (response) =>
             {
                 pairs = [];

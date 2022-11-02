@@ -18,6 +18,7 @@ def home():
     return "Mango!!!!"
 
 
+@app.route("/category/<category>", methods=["GET"])
 def getCategoryData(category):
     pool = client.get_database("pool")
     mango_c = pool.mango  # mango collection
@@ -40,10 +41,7 @@ def arrive(msg):
 def connect(msg):
     global numberOfClients
     numberOfClients += 1
-
-    if numberOfClients >= 2:
-        data = getCategoryData("words")
-        emit("startGame", data, broadcast=True)
+    emit('register', {"data": f"\nNumber of current clients: {numberOfClients}\n"})
 
 
 @socketio.on("message")

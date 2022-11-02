@@ -38,12 +38,11 @@ def arrive(msg):
 
 @socketio.on("connect")
 def connect(msg):
-    global numberOfClients
-    numberOfClients += 1
+    numberOfClients+=1
 
-    if numberOfClients >= 2:
+    if (numberOfClients>=2):
         data = getCategoryData("words")
-        emit("startGame", data, broadcast=True)
+        emit("startGame", data)
 
 
 @socketio.on("message")
