@@ -15,7 +15,12 @@
 </head>
 
 <body>
-    <center>
+    <center class="waitingContainer">
+        <div id="waitingMessege">You need at least 2 players to start</div>
+        <div> They are currently <span id="numberOfPlayers">1</span> players</div>
+        <button id="ready">Ready</button>
+    </center>
+    <center class="container">
         <div id="clue_board">
             <div id="clue">
             </div>
@@ -69,18 +74,11 @@
         const clue_container = document.getElementById("clue");
         const next_clue = document.getElementById("next_clue");
         const socket = io.connect("http://127.0.0.1:5000");
+        let current = null;
+        let wordsPairs=[]; 
 
-        socket.on("connect", (msg) =>
-        {
-            console.log("connected!");
-        });
-        socket.emit('arrive', { data: "Hello!" })
-
-        socket.on('register', (msg) =>
-        {
-            console.log(msg)
-        })
-
+        socket.emit('arrive', { data: "Hello!" }) 
+    
         function changeNoneCorrectCursor(state)
         {
             $(document).ready(() =>
@@ -94,93 +92,8 @@
                 });
             });
         }
-
-        function placeNextClue(clue)
-        {
-            console.log(clue);
-            $(document).ready(() =>
-            {
-                $("#clue").text(clue);
-            });
-            changeNoneCorrectCursor("auto");
-        }
-        //creating a timer
-        function startTimer(duration, display)
-        {
-            var timer = duration,
-                minutes,
-                seconds;
-            setInterval(function ()
-            {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                display.textContent = minutes + ":" + seconds;
-
-                // checks correct answer if the guess is made before time runs out --> will set
-                //timer to 0 once guess is made + colors the board
-                $(".object").click((e) =>
-                {
-                    if (e.target.innerText === current.object)
-                    {
-                        $(e.target).addClass("correct");
-                        $(e.target).css({ pointerEvents: "none" });
-                    } else
-                    {
-                        $(e.target).addClass("pulse");
-                    }
-                    changeNoneCorrectCursor("none");
-                    timer = 0;
-                });
-                //if time runs out, cycles to next clue.
-                //code taken from previous next button clicked logic
-                if (--timer < 0)
-                {
-                    timer = duration;
-                    // window.location.href= 'http://www.google.com';
-                    changeNoneCorrectCursor("none");
-                    current = pairs[Math.floor(Math.random() * (25 - 0 + 1)) + 0];
-                    placeNextClue(current.clue);
-                }
-            }, 1000);
-        }
-
-        window.onload = function ()
-        {
-            var fourtyFiveSeconds = 45,
-                display = document.querySelector("#time");
-            startTimer(fourtyFiveSeconds, display);
-        };
-        socket.on('startGame', (response) =>
-            {
-                pairs = [];
-                current = null;
-                Array.from(objects).forEach((field, index) =>
-                {
-                    l = response.objects.length;
-                    object_clue =
-                        response.objects[Math.floor(Math.random() * (l - 0 + 1)) + 0];
-                    pairs[index] = { object: object_clue.object, clue: object_clue.clue };
-                    field.innerText += object_clue.object;
-                });
-                current = pairs[0];
-                clue_container.innerText = current.clue;
-
-                $(document).ready(() =>
-                {
-                    // checkWinning()
-                    $("#next_clue").click((e) =>
-                    {
-                        console.log("clicked");
-                        current = pairs[Math.floor(Math.random() * (25 - 0 + 1)) + 0];
-                        placeNextClue(current.clue);
-                    });
-                });
-
-                $(document).ready(() =>
+        
+        $(document).ready(() =>
                 {
                     $(".object").click((e) =>
                     {
@@ -192,9 +105,99 @@
                         {
                             $(e.target).addClass("pulse");
                         }
+                        socket.emit('clicked');
                         changeNoneCorrectCursor("none");
                     });
-                });
+
+                    $("#ready").click(()=>{
+                        socket.emit("playerReady")
+                    });
+
+               });
+       
+        socket.on('newClue',(newWord)=>{
+            clue_container.innerText=newWord.clue;
+            changeNoneCorrectCursor("auto");
+            current=newWord
+        })
+
+        socket.on('newPlayer',(numberOfplayers)=>{
+            $("#numberOfPlayers").text(numberOfplayers)
+            if (numberOfplayers>=2){
+                $("#ready").css({display: "block"})
+            }
+        })
+
+        //creating a timer
+        // function startTimer(duration, display)
+        // {
+        //     var timer = duration,
+        //         minutes,
+        //         seconds;
+        //     setInterval(function ()
+        //     {
+        //         minutes = parseInt(timer / 60, 10);
+        //         seconds = parseInt(timer % 60, 10);
+
+        //         minutes = minutes < 10 ? "0" + minutes : minutes;
+        //         seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        //         display.textContent = minutes + ":" + seconds;
+
+        //         // checks correct answer if the guess is made before time runs out --> will set
+        //         //timer to 0 once guess is made + colors the board
+        //         $(".object").click((e) =>
+        //         {
+        //             if (e.target.innerText === current.object)
+        //             {
+        //                 $(e.target).addClass("correct");
+        //                 $(e.target).css({ pointerEvents: "none" });
+        //             } else
+        //             {
+        //                 $(e.target).addClass("pulse");
+        //             }
+        //             changeNoneCorrectCursor("none");
+        //             timer = 0;
+        //         });
+        //         //if time runs out, cycles to next clue.
+        //         //code taken from previous next button clicked logic
+        //         if (--timer < 0)
+        //         {
+        //             timer = duration;
+        //             // window.location.href= 'http://www.google.com';
+        //             changeNoneCorrectCursor("none");
+        //             current = pairs[Math.floor(Math.random() * (25 - 0 + 1)) + 0];
+        //             placeNextClue(current.clue);
+        //         }
+        //     }, 1000);
+        // }
+
+        // window.onload = function ()
+        // {
+        //     var fourtyFiveSeconds = 45,
+        //         display = document.querySelector("#time");
+        //     startTimer(fourtyFiveSeconds, display);
+        // };
+
+        socket.on('trasferData', (words,currentClueObject)=>{
+                if (wordsPairs.length==0){
+                    wordsPairs=words;
+                    Array.from(objects).forEach((field, index) =>
+                    {
+                        object_clue=wordsPairs[index]
+                        field.innerText = object_clue.object;
+                    });
+                    current = currentClueObject;
+                    clue_container.innerText = current.clue;
+                }
+
+        })
+        socket.on('startGame', () =>
+            { 
+                $(document).ready(()=>{
+                    $(".waitingContainer").css({display: "none"})
+                    $(".container").css({display: "block"})
+                })   
             });
 
     </script>
