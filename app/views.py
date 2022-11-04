@@ -39,7 +39,7 @@ def getCategoryData(category):
     query = mango_c.find_one({"category": category})
     response= {"category": query["category"], "objects": query["objects"]}
     global setOfWords
-    for _ in range(25):
+    for _ in range(9):
         object_clue =random.choice(response["objects"])
         # object_clue =response["objects"][Math.floor(Math.random() * (l - 0 + 1)) + 0]
         setOfWords.append(object_clue);
@@ -89,7 +89,7 @@ def connect():
     numberOfClients += 1
 
     if (numberOfClients==1):
-        getCategoryData("words")
+        getCategoryData("numbers")
 
     global setOfWords
    

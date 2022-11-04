@@ -35,12 +35,8 @@
                 <button class="object"></button>
                 <button class="object"></button>
                 <button class="object"></button>
-                <button class="object"></button>
-                <button class="object"></button>
             </div>
             <div class="row" id="row2">
-                <button class="object"></button>
-                <button class="object"></button>
                 <button class="object"></button>
                 <button class="object"></button>
                 <button class="object"></button>
@@ -49,12 +45,8 @@
                 <button class="object"></button>
                 <button class="object"></button>
                 <button class="object"></button>
-                <button class="object"></button>
-                <button class="object"></button>
             </div>
-            <div class="row" id="row4">
-                <button class="object"></button>
-                <button class="object"></button>
+            <!-- <div class="row" id="row4">
                 <button class="object"></button>
                 <button class="object"></button>
                 <button class="object"></button>
@@ -63,9 +55,7 @@
                 <button class="object"></button>
                 <button class="object"></button>
                 <button class="object"></button>
-                <button class="object"></button>
-                <button class="object"></button>
-            </div>
+            </div> -->
         </div>
     </center>
 
@@ -97,7 +87,8 @@
                 {
                     $(".object").click((e) =>
                     {
-                        if (e.target.innerText === current.object)
+                        console.log(typeof e.target.innerText, typeof current.object)
+                        if (e.target.innerText == current.object)
                         {
                             $(e.target).addClass("correct");
                             $(e.target).css({ pointerEvents: "none" });

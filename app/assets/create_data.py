@@ -1,5 +1,6 @@
 # import json
 import pymongo
+import random
 
 
 def connect():
@@ -22,6 +23,14 @@ def createSubject(category, objects):
     mango_c.insert_one({"category": category, "objects": objects})
     client.close()
 
+def createRandomObjects():
+    numbers = []
+
+    for i in range(25):
+        numbers.append({'object': i+1, 'clue': i+1})
+    return numbers
+
 
 if __name__ == "__main__":
-    createSubject("words")
+    createSubject('numbers', createRandomObjects())
+    # createRandomObjects()
