@@ -88,23 +88,44 @@
             });
         }
 
-        function checkBlackout(state)
+        function checkWinning(state)
         {
             $(document).ready(() =>
             {
-                var blackout = true;
-                Array.from(objects).forEach((element) =>
-                {
-                    if (!$(element).hasClass("correct"))
-                    {
-                        blackout = false;
-                    }
-                });
-                if (blackout == true){
+                var win = checkHorizental() || checkVertical();
+                if (win == true){
                   socket.emit("Blackout");
-
                 }
             });
+        }
+
+        function checkHorizental(){
+            for (let i=0;i<3;i++){
+                let win=true;
+                for (let j=0;j<3;j++){
+                    if (states[i][j]==0){
+                        win =false;
+                        break;
+                    }
+                }
+                if (win){
+                    return true;
+                }
+            }
+        }
+        function checkVertical(){
+            for (let j=0;j<3;j++){
+                let win=true;
+                for (let i=0;i<3;i++){
+                    if (states[i][j]==0){
+                        win =false;
+                        break;
+                    }
+                }
+                if (win){
+                    return true;
+                }
+            }
         }
 
         $(document).ready(() =>
@@ -116,6 +137,7 @@
                         {
                             let id=e.target.id;
                             states[parseInt(id[0])][parseInt(id[1])]=1;
+                            checkWinning();
                             $(e.target).addClass("correct");
                             $(e.target).css({ pointerEvents: "none" });
                         } else
