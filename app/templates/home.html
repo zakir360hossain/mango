@@ -180,10 +180,10 @@
         //creating a timer
         function startTimer(duration, display)
         {
-            var timer = duration,
+            let timer = duration,
                 minutes,
                 seconds;
-            setInterval(function ()
+            let realtimer = setInterval(function ()
             {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
@@ -212,10 +212,12 @@
                 //code taken from previous next button clicked logic
                 if (--timer < 0)
                 {
-                    timer = duration;
-                    // window.location.href= 'http://www.google.com';
-                    //changeNoneCorrectCursor("none");
                     socket.emit("Timer Up");
+                    clearInterval(realtimer);
+
+                    //changeNoneCorrectCursor("none");
+                    
+                    
                 }
             }, 1000);
         }
