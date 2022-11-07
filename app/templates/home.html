@@ -32,19 +32,19 @@
         </div>
         <div class="card">
             <div class="row" id="row1">
-                <button class="object"></button>
-                <button class="object"></button>
-                <button class="object"></button>
+                <button id="00" class="object"></button>
+                <button id="01" class="object"></button>
+                <button id="02" class="object"></button>
             </div>
             <div class="row" id="row2">
-                <button class="object"></button>
-                <button class="object"></button>
-                <button class="object"></button>
+                <button id="10" class="object"></button>
+                <button id="11" class="object"></button>
+                <button id="12" class="object"></button>
             </div>
             <div class="row" id="row3">
-                <button class="object"></button>
-                <button class="object"></button>
-                <button class="object"></button>
+                <button id="20" class="object"></button>
+                <button id="21" class="object"></button>
+                <button id="22" class="object"></button>
             </div>
             <!-- <div class="row" id="row4">
                 <button class="object"></button>
@@ -66,6 +66,11 @@
         const socket = io.connect("http://127.0.0.1:5000");
         let current = null;
         let wordsPairs=[];
+        let states=[
+            [0,0,0],
+            [0,0,0],
+            [0,0,0]
+        ];
 
         socket.emit('arrive', { data: "Hello!" })
 
@@ -109,6 +114,8 @@
                         console.log(typeof e.target.innerText, typeof current.object)
                         if (e.target.innerText == current.object)
                         {
+                            let id=e.target.id;
+                            states[parseInt(id[0])][parseInt(id[1])]=1;
                             $(e.target).addClass("correct");
                             $(e.target).css({ pointerEvents: "none" });
                         } else
