@@ -96,7 +96,7 @@
                     }
                 });
                 if (blackout == true){
-                  document.write("Blackout! You win!");
+                  socket.emit("Blockout");
 
                 }
             });
@@ -131,7 +131,9 @@
             changeNoneCorrectCursor("auto");
             current=newWord
         })
-
+        socket.on("endGame",()=>{
+          document.write("Blackout! You win!");
+        })
         socket.on('newPlayer',(numberOfplayers)=>{
             $("#numberOfPlayers").text(numberOfplayers)
             if (numberOfplayers>=2){

@@ -45,7 +45,7 @@ def getCategoryData(category):
         setOfWords.append(object_clue);
     global currentClueObject
     currentClueObject=random.choice(setOfWords)
-   
+
 def setNewClue():
      global currentClueObject
      currentClueObject=random.choice(setOfWords)
@@ -60,6 +60,10 @@ def clientClicked():
         global currentClueObject
         socketio.emit('newClue',currentClueObject)
         numberOfClientsClicked=0
+
+@socketio.on("Blockout")
+def blockout():
+    socketio.emit("endGame")
 
 @socketio.on("playerReady")
 def playerReady():
@@ -92,7 +96,7 @@ def connect():
         getCategoryData("numbers")
 
     global setOfWords
-   
+
     wordsCopyToShuffle=setOfWords
 
     shuffle(wordsCopyToShuffle)
@@ -105,7 +109,7 @@ def connect():
     socketio.emit('trasferData',data=(wordsCopyToShuffle,currentClueObject))
     # if numberOfClients==2:
     #     socketio.emit('startGame',broadcast=True)
-    
+
 
 @socketio.on("disconnect")
 def disconnect():
