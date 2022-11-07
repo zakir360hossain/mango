@@ -61,8 +61,8 @@ def clientClicked():
         socketio.emit('newClue',currentClueObject)
         numberOfClientsClicked=0
 
-@socketio.on("Blockout")
-def blockout():
+@socketio.on("Blackout")
+def blackout():
     socketio.emit("endGame")
 
 @socketio.on("playerReady")
