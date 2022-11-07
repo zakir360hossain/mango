@@ -65,10 +65,10 @@
         const next_clue = document.getElementById("next_clue");
         const socket = io.connect("http://127.0.0.1:5000");
         let current = null;
-        let wordsPairs=[]; 
+        let wordsPairs=[];
 
-        socket.emit('arrive', { data: "Hello!" }) 
-    
+        socket.emit('arrive', { data: "Hello!" })
+
         function changeNoneCorrectCursor(state)
         {
             $(document).ready(() =>
@@ -82,7 +82,26 @@
                 });
             });
         }
-        
+
+        function checkBlackout(state)
+        {
+            $(document).ready(() =>
+            {
+                var blackout = true;
+                Array.from(objects).forEach((element) =>
+                {
+                    if (!$(element).hasClass("correct"))
+                    {
+                        blackout = false;
+                    }
+                });
+                if (blackout == true){
+                  document.write("Blackout! You win!");
+
+                }
+            });
+        }
+
         $(document).ready(() =>
                 {
                     $(".object").click((e) =>
@@ -98,6 +117,7 @@
                         }
                         socket.emit('clicked');
                         changeNoneCorrectCursor("none");
+                        checkBlackout("none");
                     });
 
                     $("#ready").click(()=>{
@@ -105,7 +125,7 @@
                     });
 
                });
-       
+
         socket.on('newClue',(newWord)=>{
             clue_container.innerText=newWord.clue;
             changeNoneCorrectCursor("auto");
@@ -184,11 +204,11 @@
 
         })
         socket.on('startGame', () =>
-            { 
+            {
                 $(document).ready(()=>{
                     $(".waitingContainer").css({display: "none"})
                     $(".container").css({display: "block"})
-                })   
+                })
             });
 
     </script>

@@ -18,7 +18,8 @@ body {
 }
 
 .object {
-  width: 20%;
+  /* width: 20%; */
+  width: 95%;
   height: 95%;
   border: 10px;
   margin: 2px;
