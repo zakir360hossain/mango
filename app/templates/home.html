@@ -95,14 +95,14 @@
         {
             $(document).ready(() =>
             {
-                var win = checkHorizental() || checkVertical();
+                var win = checkHorizontal() || checkVertical() || checkDiagonals();
                 if (win == true){
                   socket.emit("Blackout");
                 }
             });
         }
 
-        function checkHorizental(){
+        function checkHorizontal(){
             for (let i=0;i<3;i++){
                 let win=true;
                 for (let j=0;j<3;j++){
@@ -129,6 +129,14 @@
                     return true;
                 }
             }
+        }
+
+        function checkDiagonals(){
+          let win=false;
+          if((states[0][0]==1 && states[1][1]==1 && states[2][2]==1) || (states[0][2]==1 && states[1][1]==1 && states[2][0]==1)){
+            win = true;
+          }
+          return win;
         }
 
         $(document).ready(() =>
@@ -168,7 +176,7 @@
         })
         socket.on("endGame",()=>{
             someoneHasWon = true;
-          document.write("Blackout! You win!");
+          document.write("Bingo! Game Over!");
         })
         socket.on('newPlayer',(numberOfplayers)=>{
             $("#numberOfPlayers").text(numberOfplayers)
@@ -216,8 +224,8 @@
                     clearInterval(realtimer);
 
                     //changeNoneCorrectCursor("none");
-                    
-                    
+
+
                 }
             }, 1000);
         }
@@ -245,7 +253,7 @@
                 var fourtyFiveSeconds = 45,
                 display = document.querySelector("#time");
                 startTimer(fourtyFiveSeconds, display);
-                
+
             });
 
     </script>
