@@ -41,6 +41,8 @@ def getCategoryData(category):
     global setOfWords
     for _ in range(9):
         object_clue =random.choice(response["objects"])
+        while(setOfWords.count(object_clue)>0):
+            object_clue =random.choice(response["objects"])
         # object_clue =response["objects"][Math.floor(Math.random() * (l - 0 + 1)) + 0]
         setOfWords.append(object_clue);
     global currentClueObject
