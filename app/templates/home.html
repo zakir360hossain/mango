@@ -214,20 +214,27 @@
                         $(e.target).addClass("pulse");
                     }
                     changeNoneCorrectCursor("none");
-                    timer = 0;
+                    timer = duration;
+                    //realtimer.style.display = 'none';
                 });
                 //if time runs out, cycles to next clue.
                 //code taken from previous next button clicked logic
-                if (--timer < 0)
+                if (--timer <= 0)
                 {
                     socket.emit("Timer Up");
+                    //timer = duration
+                    
+                    realtimer.style.display = 'none';
                     clearInterval(realtimer);
+                    //realtimer.style.display = 'none';
+                    
 
                     //changeNoneCorrectCursor("none");
 
 
                 }
             }, 1000);
+            //clearInterval(realtimer);
         }
 
 
