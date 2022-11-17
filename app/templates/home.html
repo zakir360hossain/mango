@@ -60,6 +60,9 @@
     </center>
 
     <script>
+        // Global variables
+        var realtimer;
+        // Game objects and variables
         const objects = document.getElementsByClassName("object");
         const clue_container = document.getElementById("clue");
         const next_clue = document.getElementById("next_clue");
@@ -188,10 +191,13 @@
         //creating a timer
         function startTimer(duration, display)
         {
+            if(realtimer) {
+                clearInterval(realtimer);
+            }
             let timer = duration,
                 minutes,
                 seconds;
-            let realtimer = setInterval(function ()
+            realtimer = setInterval(function ()
             {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
@@ -221,17 +227,13 @@
                 //code taken from previous next button clicked logic
                 if (--timer <= 0)
                 {
+                    clearInterval(realtimer);
                     socket.emit("Timer Up");
                     //timer = duration
-                    
+
                     realtimer.style.display = 'none';
-                    clearInterval(realtimer);
                     //realtimer.style.display = 'none';
-                    
-
                     //changeNoneCorrectCursor("none");
-
-
                 }
             }, 1000);
             //clearInterval(realtimer);
