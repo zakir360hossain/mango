@@ -81,7 +81,7 @@ def playerReady(currentUser):
     players.append(currentUser)
     numberOfPlayersReady+=1
     global numberOfClients
-    if numberOfClients==2 and numberOfPlayersReady==numberOfClients:
+    if len(players)==2 and numberOfPlayersReady==len(players):
         socketio.emit('startGame',broadcast=True)
 
 
@@ -102,6 +102,7 @@ def connect():
     global numberOfClients
 
     numberOfClients += 1
+    #need to increment when we submit a username, not when we connect
 
     if (numberOfClients==1):
         getCategoryData("numbers")

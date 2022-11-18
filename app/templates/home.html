@@ -173,6 +173,7 @@
                     $("#submit").click(()=>{
                         currentUser = document.getElementById("username").value;
                         $("#username").css({display: "none"})
+                        $("#submit").css({display: "none"})
                         socket.emit("playerReady", currentUser);
                     });
 
