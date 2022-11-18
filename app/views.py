@@ -24,6 +24,8 @@ currentClueObject=None
 
 numberOfPlayersReady=0
 
+players = []
+
 connection_url = "mongodb+srv://zakir:mongo123@cluster0.abqkq.mongodb.net/?retryWrites=true&w=majority"
 client = pymongo.MongoClient(connection_url)  # returns a client
 
@@ -70,12 +72,13 @@ def clientClicked():
         numberOfClientsClicked=0
 
 @socketio.on("Blackout")
-def blackout():
-    socketio.emit("endGame")
+def blackout(currentUser):
+    socketio.emit("endGame", currentUser)
 
 @socketio.on("playerReady")
-def playerReady():
+def playerReady(currentUser):
     global numberOfPlayersReady
+    players.append(currentUser)
     numberOfPlayersReady+=1
     global numberOfClients
     if numberOfClients==2 and numberOfPlayersReady==numberOfClients:

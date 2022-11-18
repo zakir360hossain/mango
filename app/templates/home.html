@@ -17,8 +17,13 @@
 <body>
     <center class="waitingContainer">
         <div id="waitingMessege">You need at least 2 players to start</div>
+        <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" username="username"><br><br>
+        <button id="submit">Submit</button>
+        </form> 
         <div> They are currently <span id="numberOfPlayers">1</span> players</div>
-        <button id="ready">Ready</button>
+        <!--<button id="ready">Ready</button> -->
     </center>
     <center class="container">
         <div id="clue_board">
@@ -62,6 +67,7 @@
     <script>
         // Global variables
         var realtimer;
+        var currentUser;
         // Game objects and variables
         const objects = document.getElementsByClassName("object");
         const clue_container = document.getElementById("clue");
@@ -100,7 +106,8 @@
             {
                 var win = checkHorizontal() || checkVertical() || checkDiagonals();
                 if (win == true){
-                  socket.emit("Blackout");
+                  socket.emit("Blackout", currentUser);
+
                 }
             });
         }
@@ -163,8 +170,10 @@
                         checkBlackout("none");
                     });
 
-                    $("#ready").click(()=>{
-                        socket.emit("playerReady")
+                    $("#submit").click(()=>{
+                        currentUser = document.getElementById("username").value;
+                        $("#username").css({display: "none"})
+                        socket.emit("playerReady", currentUser);
                     });
 
                });
@@ -177,14 +186,14 @@
             display = document.querySelector("#time");
             startTimer(fourtyFiveSeconds, display);
         })
-        socket.on("endGame",()=>{
+        socket.on("endGame",(currentUser)=>{
             someoneHasWon = true;
-          document.write("Bingo! Game Over!");
+          document.write(currentUser+ " has won Bingo!");
         })
         socket.on('newPlayer',(numberOfplayers)=>{
             $("#numberOfPlayers").text(numberOfplayers)
             if (numberOfplayers>=2){
-                $("#ready").css({display: "block"})
+                $("#submit").css({display: "block"})
             }
         })
 
