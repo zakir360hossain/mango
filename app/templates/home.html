@@ -17,11 +17,9 @@
 <body>
     <center class="waitingContainer">
         <div id="waitingMessege">You need at least 2 players to start</div>
-        <form>
         <label for="username">Username:</label>
         <input type="text" id="username" username="username"><br><br>
-        <button id="submit">Submit</button>
-        </form> 
+        <button id="submitButton">Submit</button>
         <div> There are currently <span id="numberOfPlayers">1</span> players</div>
         <!--<button id="ready">Ready</button> -->
     </center>
@@ -151,10 +149,10 @@
 
         $(document).ready(() =>
                 {
-                    $("#submit").click(()=>{
+                    $("#submitButton").click(()=>{
                         currentUser = document.getElementById("username").value;
                         $("#username").css({display: "none"})
-                        $("#submit").css({display: "none"})
+                        $("#submitButton").css({display: "none"})
                         socket.emit("playerReady", currentUser);
                     });
 
@@ -196,7 +194,7 @@
         socket.on('newPlayer',(numberOfplayers)=>{
             $("#numberOfPlayers").text(numberOfplayers)
             if (numberOfplayers>=2){
-                $("#submit").css({display: "block"})
+                $("#submitButton").css({display: "block"})
             }
         })
 
@@ -271,7 +269,7 @@
                     $(".waitingContainer").css({display: "none"})
                     $(".container").css({display: "block"})
                     $("#username").css({display: "none"})
-                    $("#submit").css({display: "none"})
+                    $("#submitButton").css({display: "none"})
                 })
                 var fourtyFiveSeconds = 45,
                 display = document.querySelector("#time");
