@@ -20,6 +20,7 @@
         <label for="username" id="userLabel">Username:</label>
         <input type="text" id="username" username="username"><br><br>
         <button id="submitButton">Submit</button>
+        <span id="error"></span>
         <div> There are currently <span id="numberOfPlayers">1</span> players</div>
         <!--<button id="ready">Ready</button> -->
     </center>
@@ -148,23 +149,34 @@
           return win;
         }
 
+        function errorMessage(){
+            var error = document.getElementById("error");
+            console.log(error)
+            error.textContent = "Please enter a unique username"
+            error.style.color = "red"
+
+        }
+
         $(document).ready(() =>
                 {
                     $("#submitButton").click(()=>{
                         currentUser = document.getElementById("username").value;
                         socket.emit("checkName", currentUser);
                         socket.on("duplicateName", (message)=>{
-                            console.log(message)
+                            //console.log(message)
                             if (!message){
                                 //message returns 1 if the username is unique
                                 $("#currentUser").text(currentUser)
+                                $("#error").css({display: "none"})
                                 $("#username").css({display: "none"})
                                 $("#submitButton").css({display: "none"})
                                 $("#userLabel").css({display: "none"})
+                                
                                 socket.emit("playerReady", currentUser);
                             }
                             else {
                                 document.getElementById("username").value = NULL;
+                                errorMessage();
                             }
 
                         })
