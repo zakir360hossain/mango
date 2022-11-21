@@ -22,7 +22,7 @@
         <input type="text" id="username" username="username"><br><br>
         <button id="submit">Submit</button>
         </form> 
-        <div> They are currently <span id="numberOfPlayers">1</span> players</div>
+        <div> There are currently <span id="numberOfPlayers">1</span> players</div>
         <!--<button id="ready">Ready</button> -->
     </center>
     <center class="container">
@@ -151,6 +151,13 @@
 
         $(document).ready(() =>
                 {
+                    $("#submit").click(()=>{
+                        currentUser = document.getElementById("username").value;
+                        $("#username").css({display: "none"})
+                        $("#submit").css({display: "none"})
+                        socket.emit("playerReady", currentUser);
+                    });
+
                     $(".object").click((e) =>
                     {
                         console.log(typeof e.target.innerText, typeof current.object)
@@ -170,12 +177,7 @@
                         checkBlackout("none");
                     });
 
-                    $("#submit").click(()=>{
-                        currentUser = document.getElementById("username").value;
-                        $("#username").css({display: "none"})
-                        $("#submit").css({display: "none"})
-                        socket.emit("playerReady", currentUser);
-                    });
+                    
 
                });
 
@@ -268,6 +270,8 @@
                 $(document).ready(()=>{
                     $(".waitingContainer").css({display: "none"})
                     $(".container").css({display: "block"})
+                    $("#username").css({display: "none"})
+                    $("#submit").css({display: "none"})
                 })
                 var fourtyFiveSeconds = 45,
                 display = document.querySelector("#time");
