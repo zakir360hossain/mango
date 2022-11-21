@@ -50,16 +50,16 @@ def getCategoryData(category):
         # object_clue =response["objects"][Math.floor(Math.random() * (l - 0 + 1)) + 0]
         setOfWords.append(object_clue);
     global setOfAvailableWords
-    setOfAvailableWords=setOfWords
     global currentClueObject
+    setOfAvailableWords=setOfWords
     currentClueObject=random.choice(setOfWords)
-    setOfAvailableWords.remove(currentClueObject)
 
 def setNewClue():
      global currentClueObject
+     global setOfAvailableWords
      currentClueObject=random.choice(setOfAvailableWords)
      setOfAvailableWords.remove(currentClueObject)
-     
+
 @socketio.on("Timer Up")
 def timerUp():
     setNewClue()
