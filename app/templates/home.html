@@ -17,13 +17,14 @@
 <body>
     <center class="waitingContainer">
         <div id="waitingMessege">You need at least 2 players to start</div>
-        <label for="username">Username:</label>
+        <label for="username" id="userLabel">Username:</label>
         <input type="text" id="username" username="username"><br><br>
         <button id="submitButton">Submit</button>
         <div> There are currently <span id="numberOfPlayers">1</span> players</div>
         <!--<button id="ready">Ready</button> -->
     </center>
     <center class="container">
+        <div id="currentUser"></div>
         <div id="clue_board">
             <div id="clue">
             </div>
@@ -151,8 +152,10 @@
                 {
                     $("#submitButton").click(()=>{
                         currentUser = document.getElementById("username").value;
+                        $("#currentUser").text(currentUser)
                         $("#username").css({display: "none"})
                         $("#submitButton").css({display: "none"})
+                        $("#userLabel").css({display: "none"})
                         socket.emit("playerReady", currentUser);
                     });
 

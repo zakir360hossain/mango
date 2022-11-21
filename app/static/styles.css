@@ -35,6 +35,14 @@ body {
 
 .container{
   display: none;
+  border: 1px solid plum;
+
+}
+
+#currentUser{
+  font-size: 30px;
+  color: white;
+  transform: translateX(600px);
 }
 
 .waitingContainer {
