@@ -20,7 +20,7 @@
         <label for="username" id="userLabel">Username:</label>
         <input type="text" id="username" username="username"><br><br>
         <button id="submitButton">Submit</button>
-        <span id="error"></span>
+        <span id="errorText"></span>
         <div> There are currently <span id="numberOfPlayers">1</span> players</div>
         <!--<button id="ready">Ready</button> -->
     </center>
@@ -152,8 +152,8 @@
         function errorMessage(){
             var error = document.getElementById("error");
             console.log(error)
-            error.textContent = "Please enter a unique username"
-            error.style.color = "red"
+            errorText.textContent = "Please enter a unique username"
+            //errorText.style.color = "red"
 
         }
 
@@ -175,8 +175,9 @@
                                 socket.emit("playerReady", currentUser);
                             }
                             else {
-                                document.getElementById("username").value = NULL;
                                 errorMessage();
+                                document.getElementById("username").value = NULL;
+                                
                             }
 
                         })

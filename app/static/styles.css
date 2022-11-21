@@ -45,6 +45,11 @@ body {
   transform: translateX(550px);
 }
 
+#errorText{
+  font-size: 30px;
+  color: palevioletred;
+}
+
 .waitingContainer {
   color: white;
   font-size:30px;
