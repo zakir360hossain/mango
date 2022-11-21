@@ -42,7 +42,7 @@ body {
 #currentUser{
   font-size: 30px;
   color: white;
-  transform: translateX(600px);
+  transform: translateX(550px);
 }
 
 .waitingContainer {

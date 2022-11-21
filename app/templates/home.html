@@ -152,11 +152,27 @@
                 {
                     $("#submitButton").click(()=>{
                         currentUser = document.getElementById("username").value;
-                        $("#currentUser").text(currentUser)
-                        $("#username").css({display: "none"})
-                        $("#submitButton").css({display: "none"})
-                        $("#userLabel").css({display: "none"})
-                        socket.emit("playerReady", currentUser);
+                        socket.emit("checkName", currentUser);
+                        socket.on("duplicateName", (message)=>{
+                            console.log(message)
+                            if (!message){
+                                //message returns 1 if the username is unique
+                                $("#currentUser").text(currentUser)
+                                $("#username").css({display: "none"})
+                                $("#submitButton").css({display: "none"})
+                                $("#userLabel").css({display: "none"})
+                                socket.emit("playerReady", currentUser);
+                            }
+                            else {
+                                document.getElementById("username").value = NULL;
+                            }
+
+                        })
+                        // $("#currentUser").text(currentUser)
+                        // $("#username").css({display: "none"})
+                        // $("#submitButton").css({display: "none"})
+                        // $("#userLabel").css({display: "none"})
+                        // socket.emit("playerReady", currentUser);
                     });
 
                     $(".object").click((e) =>
@@ -253,7 +269,7 @@
         }
 
 
-        socket.on('trasferData', (words,currentClueObject)=>{
+        socket.on('transferData', (words,currentClueObject)=>{
                 if (wordsPairs.length==0){
                     wordsPairs=words;
                     Array.from(objects).forEach((field, index) =>

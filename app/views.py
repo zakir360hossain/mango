@@ -20,7 +20,7 @@ numberOfClientsClicked=0
 
 setOfWords=[]
 
-setOfAvailableWords=[]
+#setOfAvailableWords=[]
 
 currentClueObject=None
 
@@ -48,17 +48,18 @@ def getCategoryData(category):
         while(setOfWords.count(object_clue)>0):
             object_clue =random.choice(response["objects"])
         # object_clue =response["objects"][Math.floor(Math.random() * (l - 0 + 1)) + 0]
-        setOfWords.append(object_clue);
-    global setOfAvailableWords
-    setOfAvailableWords=setOfWords
+        setOfWords.append(object_clue)
+    #global setOfAvailableWords
+    #setOfAvailableWords=setOfWords
     global currentClueObject
     currentClueObject=random.choice(setOfWords)
-    setOfAvailableWords.remove(currentClueObject)
+
+    #setOfAvailableWords.remove(currentClueObject)
 
 def setNewClue():
      global currentClueObject
-     currentClueObject=random.choice(setOfAvailableWords)
-     setOfAvailableWords.remove(currentClueObject)
+     currentClueObject=random.choice(setOfWords)
+     #setOfAvailableWords.remove(currentClueObject)
      
 @socketio.on("Timer Up")
 def timerUp():
@@ -88,7 +89,7 @@ def playerReady(currentUser):
     players.append(currentUser)
     numberOfPlayersReady+=1
     global numberOfClients
-    if len(players)==2 and numberOfPlayersReady==len(players):
+    if len(players)==2:
         socketio.emit('startGame',broadcast=True)
 
 
@@ -103,6 +104,13 @@ def shuffle(array):
         random_index = random.randint(0, n)
         temp = array.pop(random_index)
         array.append(temp)
+
+@socketio.on("checkName")
+def checkDuplicate(currentUser):
+    print(f'current user {currentUser}, players: {players}')
+    message = currentUser in players
+    emit("duplicateName", message)
+    
 
 @socketio.on("connect")
 def connect():
@@ -119,13 +127,15 @@ def connect():
     wordsCopyToShuffle=setOfWords
 
     shuffle(wordsCopyToShuffle)
+    print(wordsCopyToShuffle)
+
 
     global currentClueObject
 
 
     socketio.emit("newPlayer",numberOfClients,broadcast=True)
 
-    socketio.emit('trasferData',data=(wordsCopyToShuffle,currentClueObject))
+    socketio.emit('transferData',data=(wordsCopyToShuffle,currentClueObject))
     # if numberOfClients==2:
     #     socketio.emit('startGame',broadcast=True)
 
