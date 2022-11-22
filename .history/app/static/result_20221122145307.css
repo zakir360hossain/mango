@@ -1,0 +1,33 @@
+body {
+  background-image: url("../assets/confetti-doodles.svg");
+}
+
+#container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+#badge-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 50vw;
+}
+
+#badge {
+  height: 50vh;
+  width: 50vw;
+}
+
+#result {
+  margin-top: -33vh;
+  font-size: calc(20px + 2vw);
+  color: #b8c6db;
+}

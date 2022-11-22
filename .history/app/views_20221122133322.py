@@ -151,9 +151,13 @@ def disconnect():
 
 @app.route("/result.html")
 def have_Won():
+    # print("Winner page reached")
+    # winner = request.args.get('winner')
+    # print(winner)
     return render_template("result.html")
+    # return render_template("win.html", value = winner)
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, debug=True)
     client.close()

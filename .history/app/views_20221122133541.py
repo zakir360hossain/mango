@@ -152,6 +152,7 @@ def disconnect():
 @app.route("/result.html")
 def have_Won():
     return render_template("result.html")
+    # return render_template("win.html", value = winner)
 
 
 if __name__ == "__main__":

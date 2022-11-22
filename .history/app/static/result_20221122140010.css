@@ -1,0 +1,16 @@
+body {
+  background: linear-gradient(to right, #29524A, #E9BCB7);
+}
+
+#container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#badge-container{
+  height: 20vh;
+  width: 20vw
+}
