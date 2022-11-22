@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/result.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    body {
+        /*background: linear-gradient(to right, #29524a, #e9bcb7);
+        */
+        background-image: url('../assets/confetti-doodles.svg');
+    }
+
+    #container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5vh;
+    }
+
+    #badge-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 40vh;
+        width: 40vw;
+    }
+
+    #badge {
+        height: 40vh;
+        width: ;
+    }
+
+    #result {
+        font-size: 50px;
+        color: #b8c6db;
+    }
+</style>
+
+<body>
+
+    <div id="container">
+        <div id="badge-container">
+            <img id="badge" src="../assets/prize_winner.svg" />
+        </div>
+        <div id="result">Zakir</div>
+    </div>
+    <!-- <script>
+        $(document).ready(() =>
+        {
+            let winner = new URL(location.href).searchParams.get('winner')
+            $("#result").text(winner)
+        })
+    </script> -->
+</body>
+
+</html>

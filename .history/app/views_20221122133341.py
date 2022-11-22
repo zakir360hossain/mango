@@ -1,7 +1,7 @@
 from distutils.log import debug
 from socket import socket
 from flask import request
-from flask import Flask, render_template
+from flask import Flask, render_template, after_this_request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send
 import pymongo
@@ -122,10 +122,7 @@ def connect():
     global numberOfClients
 
     numberOfClients += 1
-<<<<<<< HEAD
-=======
     # need to increment when we submit a username, not when we connect
->>>>>>> 731adc652e55dc2bd15fd408bd6a95492026707a
 
     if numberOfClients == 1:
         getCategoryData("numbers")
@@ -154,7 +151,11 @@ def disconnect():
 
 @app.route("/result.html")
 def have_Won():
+    # print("Winner page reached")
+    # winner = request.args.get('winner')
+    # print(winner)
     return render_template("result.html")
+    # return render_template("win.html", value = winner)
 
 
 if __name__ == "__main__":

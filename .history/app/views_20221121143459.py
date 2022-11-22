@@ -1,6 +1,3 @@
-from distutils.log import debug
-from socket import socket
-from flask import request
 from flask import Flask, render_template
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send
@@ -20,7 +17,7 @@ numberOfClientsClicked = 0
 
 setOfWords = []
 
-# setOfAvailableWords=[]
+setOfAvailableWords = []
 
 currentClueObject = None
 
@@ -50,14 +47,14 @@ def getCategoryData(category):
         # object_clue =response["objects"][Math.floor(Math.random() * (l - 0 + 1)) + 0]
         setOfWords.append(object_clue)
     global setOfAvailableWords
-    global currentClueObject
     setOfAvailableWords = setOfWords
+    global currentClueObject
     currentClueObject = random.choice(setOfWords)
+    setOfAvailableWords.remove(currentClueObject)
 
 
 def setNewClue():
     global currentClueObject
-    global setOfAvailableWords
     currentClueObject = random.choice(setOfAvailableWords)
     setOfAvailableWords.remove(currentClueObject)
 
@@ -93,13 +90,17 @@ def playerReady(currentUser):
     players.append(currentUser)
     numberOfPlayersReady += 1
     global numberOfClients
-    if len(players) == 2:
+    if len(players) == 2 and numberOfPlayersReady == len(players):
         socketio.emit("startGame", broadcast=True)
 
 
 @app.route("/home.html")
 def get_home():
     return render_template("home.html")
+
+@app.route("/home.html")
+def get_result():
+    return render_template("result.html")
 
 
 def shuffle(array):
@@ -110,22 +111,12 @@ def shuffle(array):
         array.append(temp)
 
 
-@socketio.on("checkName")
-def checkDuplicate(currentUser):
-    print(f"current user {currentUser}, players: {players}")
-    message = currentUser in players
-    emit("duplicateName", message)
-
-
 @socketio.on("connect")
 def connect():
     global numberOfClients
 
     numberOfClients += 1
-<<<<<<< HEAD
-=======
     # need to increment when we submit a username, not when we connect
->>>>>>> 731adc652e55dc2bd15fd408bd6a95492026707a
 
     if numberOfClients == 1:
         getCategoryData("numbers")
@@ -135,13 +126,12 @@ def connect():
     wordsCopyToShuffle = setOfWords
 
     shuffle(wordsCopyToShuffle)
-    print(wordsCopyToShuffle)
 
     global currentClueObject
 
     socketio.emit("newPlayer", numberOfClients, broadcast=True)
 
-    socketio.emit("transferData", data=(wordsCopyToShuffle, currentClueObject))
+    socketio.emit("trasferData", data=(wordsCopyToShuffle, currentClueObject))
     # if numberOfClients==2:
     #     socketio.emit('startGame',broadcast=True)
 
@@ -150,11 +140,6 @@ def connect():
 def disconnect():
     global numberOfClients
     numberOfClients -= 1
-
-
-@app.route("/result.html")
-def have_Won():
-    return render_template("result.html")
 
 
 if __name__ == "__main__":

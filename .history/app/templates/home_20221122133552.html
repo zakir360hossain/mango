@@ -221,7 +221,12 @@
         })
         socket.on("endGame",(currentUser)=>{
             someoneHasWon = true;
+            
             window.location.href = "/result.html"+"?winner="+currentUser
+            //localStorage.winner = currentUser
+            //sessionStorage.setItem("winner", currentUser);
+            
+
         })
         socket.on('newPlayer',(numberOfplayers)=>{
             $("#numberOfPlayers").text(numberOfplayers)

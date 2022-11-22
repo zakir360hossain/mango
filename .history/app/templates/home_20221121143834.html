@@ -20,7 +20,6 @@
         <label for="username" id="userLabel">Username:</label>
         <input type="text" id="username" username="username"><br><br>
         <button id="submitButton">Submit</button>
-        <span id="errorText"></span>
         <div> There are currently <span id="numberOfPlayers">1</span> players</div>
         <!--<button id="ready">Ready</button> -->
     </center>
@@ -149,43 +148,15 @@
           return win;
         }
 
-        function errorMessage(){
-            var error = document.getElementById("error");
-            console.log(error)
-            errorText.textContent = "Please enter a unique username"
-            //errorText.style.color = "red"
-
-        }
-
         $(document).ready(() =>
                 {
                     $("#submitButton").click(()=>{
                         currentUser = document.getElementById("username").value;
-                        socket.emit("checkName", currentUser);
-                        socket.on("duplicateName", (message)=>{
-                            //console.log(message)
-                            if (!message){
-                                //message returns 1 if the username is unique
-                                $("#currentUser").text(currentUser)
-                                $("#error").css({display: "none"})
-                                $("#username").css({display: "none"})
-                                $("#submitButton").css({display: "none"})
-                                $("#userLabel").css({display: "none"})
-                                
-                                socket.emit("playerReady", currentUser);
-                            }
-                            else {
-                                errorMessage();
-                                document.getElementById("username").value = NULL;
-                                
-                            }
-
-                        })
-                        // $("#currentUser").text(currentUser)
-                        // $("#username").css({display: "none"})
-                        // $("#submitButton").css({display: "none"})
-                        // $("#userLabel").css({display: "none"})
-                        // socket.emit("playerReady", currentUser);
+                        $("#currentUser").text(currentUser)
+                        $("#username").css({display: "none"})
+                        $("#submitButton").css({display: "none"})
+                        $("#userLabel").css({display: "none"})
+                        socket.emit("playerReady", currentUser);
                     });
 
                     $(".object").click((e) =>
@@ -221,7 +192,8 @@
         })
         socket.on("endGame",(currentUser)=>{
             someoneHasWon = true;
-            window.location.href = "/result.html"+"?winner="+currentUser
+         // document.write(currentUser+ " has won Bingo!");
+                window.location = '/player_detail?username=' + name;
         })
         socket.on('newPlayer',(numberOfplayers)=>{
             $("#numberOfPlayers").text(numberOfplayers)
@@ -282,7 +254,7 @@
         }
 
 
-        socket.on('transferData', (words,currentClueObject)=>{
+        socket.on('trasferData', (words,currentClueObject)=>{
                 if (wordsPairs.length==0){
                     wordsPairs=words;
                     Array.from(objects).forEach((field, index) =>

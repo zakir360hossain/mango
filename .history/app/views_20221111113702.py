@@ -1,6 +1,3 @@
-from distutils.log import debug
-from socket import socket
-from flask import request
 from flask import Flask, render_template
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send
@@ -20,13 +17,9 @@ numberOfClientsClicked = 0
 
 setOfWords = []
 
-# setOfAvailableWords=[]
-
 currentClueObject = None
 
 numberOfPlayersReady = 0
-
-players = []
 
 connection_url = "mongodb+srv://zakir:mongo123@cluster0.abqkq.mongodb.net/?retryWrites=true&w=majority"
 client = pymongo.MongoClient(connection_url)  # returns a client
@@ -45,21 +38,15 @@ def getCategoryData(category):
     global setOfWords
     for _ in range(9):
         object_clue = random.choice(response["objects"])
-        while setOfWords.count(object_clue) > 0:
-            object_clue = random.choice(response["objects"])
         # object_clue =response["objects"][Math.floor(Math.random() * (l - 0 + 1)) + 0]
         setOfWords.append(object_clue)
-    global setOfAvailableWords
     global currentClueObject
-    setOfAvailableWords = setOfWords
     currentClueObject = random.choice(setOfWords)
 
 
 def setNewClue():
     global currentClueObject
-    global setOfAvailableWords
-    currentClueObject = random.choice(setOfAvailableWords)
-    setOfAvailableWords.remove(currentClueObject)
+    currentClueObject = random.choice(setOfWords)
 
 
 @socketio.on("Timer Up")
@@ -83,17 +70,16 @@ def clientClicked():
 
 
 @socketio.on("Blackout")
-def blackout(currentUser):
-    socketio.emit("endGame", currentUser)
+def blackout():
+    socketio.emit("endGame")
 
 
 @socketio.on("playerReady")
-def playerReady(currentUser):
+def playerReady():
     global numberOfPlayersReady
-    players.append(currentUser)
     numberOfPlayersReady += 1
     global numberOfClients
-    if len(players) == 2:
+    if numberOfClients == 2 and numberOfPlayersReady == numberOfClients:
         socketio.emit("startGame", broadcast=True)
 
 
@@ -110,22 +96,11 @@ def shuffle(array):
         array.append(temp)
 
 
-@socketio.on("checkName")
-def checkDuplicate(currentUser):
-    print(f"current user {currentUser}, players: {players}")
-    message = currentUser in players
-    emit("duplicateName", message)
-
-
 @socketio.on("connect")
 def connect():
     global numberOfClients
 
     numberOfClients += 1
-<<<<<<< HEAD
-=======
-    # need to increment when we submit a username, not when we connect
->>>>>>> 731adc652e55dc2bd15fd408bd6a95492026707a
 
     if numberOfClients == 1:
         getCategoryData("numbers")
@@ -135,13 +110,12 @@ def connect():
     wordsCopyToShuffle = setOfWords
 
     shuffle(wordsCopyToShuffle)
-    print(wordsCopyToShuffle)
 
     global currentClueObject
 
     socketio.emit("newPlayer", numberOfClients, broadcast=True)
 
-    socketio.emit("transferData", data=(wordsCopyToShuffle, currentClueObject))
+    socketio.emit("trasferData", data=(wordsCopyToShuffle, currentClueObject))
     # if numberOfClients==2:
     #     socketio.emit('startGame',broadcast=True)
 
@@ -150,11 +124,6 @@ def connect():
 def disconnect():
     global numberOfClients
     numberOfClients -= 1
-
-
-@app.route("/result.html")
-def have_Won():
-    return render_template("result.html")
 
 
 if __name__ == "__main__":
