@@ -1,7 +1,7 @@
 from distutils.log import debug
 from socket import socket
 from flask import request
-from flask import Flask, render_template, after_this_request
+from flask import Flask, render_template
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send
 import pymongo
@@ -118,7 +118,6 @@ def connect():
     global numberOfClients
 
     numberOfClients += 1
-    #need to increment when we submit a username, not when we connect
 
     if (numberOfClients==1):
         getCategoryData("numbers")
