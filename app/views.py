@@ -149,7 +149,6 @@ def disconnect():
 @app.route("/win.html")
 def have_Won():
     print("Winner page reached")
-    #winner = request.GET.get('winner')
     winner = request.args.get('winner')
     print(winner)
 

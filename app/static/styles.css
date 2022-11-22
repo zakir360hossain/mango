@@ -54,6 +54,8 @@ body {
 #desc {
   color:white;
   align-items: center;
+  border-radius: 5px;
+  border: 1px solid pink;
 }
 
 #announce{
