@@ -58,8 +58,8 @@ def getCategoryData(category):
 def setNewClue():
     global currentClueObject
     global setOfAvailableWords
-    currentClueObject = random.choice(setOfAvailableWords)
     setOfAvailableWords.remove(currentClueObject)
+    currentClueObject = random.choice(setOfAvailableWords)
 
 
 @socketio.on("Timer Up")
