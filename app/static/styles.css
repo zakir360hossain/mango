@@ -45,9 +45,25 @@ body {
   transform: translateX(550px);
 }
 
+#winnerText {
+  font-size: 30px;
+  color:white;
+  align-items: center;
+}
+
+#desc {
+  color:white;
+  align-items: center;
+}
+
+#announce{
+  color:white;
+  align-items: center;
+}
+
 #errorText{
   font-size: 30px;
-  color: palevioletred;
+  color: rgb(219, 68, 118);
 }
 
 .waitingContainer {

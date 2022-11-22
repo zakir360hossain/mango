@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Game Over!</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<script>
+
+    window.addEventListener("load", (event) => {
+        //console.log("page is fully loaded");
+        //returnWinner()
+        document.getElementById("result").innerHTML = localStorage.getItem("winner");
+    });
+    function returnWinner(){
+        //var playerWon = document.getElementById("winnerText");
+        //console.log(playerWon)
+        //var winner = sessionStorage.getItem("winner");
+        //localStorage.winner = currentUser
+        var winner = window.currentUser()
+        playerWon.textContent = winner
+        
+        
+    }
+</script>
+
+
+<body>
+    <center>
+    <h1 id="announce"><span id="winnerText"></span> has won Bingo!</h1>
+    <h3 id ="desc"> 
+        This game was made by Alexa Bartlett, Ibrahim Hassouna, Zakir Hossain, and Trisha Razdan.
+    </h3>
+    <h4 id="desc">
+        Mango: An Educational Bingo Game (2022) was created for the group's CS 071: Software Engineering semester project, under the guidance of Professor Michael Wehar.
+    </h4>
+    </center>
+</body>

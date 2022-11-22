@@ -1,7 +1,7 @@
 from distutils.log import debug
 from socket import socket
 from flask import request
-from flask import Flask, render_template
+from flask import Flask, render_template, after_this_request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send
 import pymongo
@@ -104,6 +104,8 @@ def shuffle(array):
         temp = array.pop(random_index)
         array.append(temp)
 
+    
+
 @socketio.on("checkName")
 def checkDuplicate(currentUser):
     print(f'current user {currentUser}, players: {players}')
@@ -143,6 +145,19 @@ def connect():
 def disconnect():
     global numberOfClients
     numberOfClients-=1
+
+@app.route("/win.html")
+#def have_Won():
+   # print("Winner page reached")
+    #return
+def get_win():
+    return render_template("win.html")
+
+#@socketio.on("sendwinner")
+
+
+
+
 
 
 if __name__ == "__main__":
