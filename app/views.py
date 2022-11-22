@@ -147,13 +147,14 @@ def disconnect():
     numberOfClients-=1
 
 @app.route("/win.html")
-#def have_Won():
-   # print("Winner page reached")
-    #return
-def get_win():
-    return render_template("win.html")
+def have_Won():
+    print("Winner page reached")
+    #winner = request.GET.get('winner')
+    winner = request.args.get('winner')
+    print(winner)
 
-#@socketio.on("sendwinner")
+    return render_template("win.html", value = winner)
+
 
 
 

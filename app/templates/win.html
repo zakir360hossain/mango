@@ -6,30 +6,12 @@
     <title>Game Over!</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
-
-<script>
-
-    window.addEventListener("load", (event) => {
-        //console.log("page is fully loaded");
-        //returnWinner()
-        document.getElementById("result").innerHTML = localStorage.getItem("winner");
-    });
-    function returnWinner(){
-        //var playerWon = document.getElementById("winnerText");
-        //console.log(playerWon)
-        //var winner = sessionStorage.getItem("winner");
-        //localStorage.winner = currentUser
-        var winner = window.currentUser()
-        playerWon.textContent = winner
-        
-        
-    }
-</script>
-
-
 <body>
+
+
     <center>
-    <h1 id="announce"><span id="winnerText"></span> has won Bingo!</h1>
+        <!--Value is passed via flask's render template-->
+    <h1 id="announce">{{value}} has won Bingo!</h1>
     <h3 id ="desc"> 
         This game was made by Alexa Bartlett, Ibrahim Hassouna, Zakir Hossain, and Trisha Razdan.
     </h3>
@@ -38,3 +20,4 @@
     </h4>
     </center>
 </body>
+</html>
