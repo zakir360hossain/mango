@@ -122,10 +122,7 @@ def connect():
     global numberOfClients
 
     numberOfClients += 1
-<<<<<<< HEAD
-=======
     # need to increment when we submit a username, not when we connect
->>>>>>> 731adc652e55dc2bd15fd408bd6a95492026707a
 
     if numberOfClients == 1:
         getCategoryData("numbers")
