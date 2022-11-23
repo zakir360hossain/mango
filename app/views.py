@@ -97,7 +97,7 @@ def playerReady(currentUser):
     players.append(currentUser)
     numberOfPlayersReady += 1
     global numberOfClients
-    if len(players) == 2:
+    if len(players) == numberOfClients:
         socketio.emit("startGame", broadcast=True)
 
 
