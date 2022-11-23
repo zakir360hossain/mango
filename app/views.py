@@ -59,7 +59,11 @@ def setNewClue():
     global currentClueObject
     global setOfAvailableWords
     setOfAvailableWords.remove(currentClueObject)
-    currentClueObject = random.choice(setOfAvailableWords)
+    if(len(setOfAvailableWords) == 0):
+        socketio.emit("noWinner")
+    else:
+        currentClueObject = random.choice(setOfAvailableWords)
+    
 
 
 @socketio.on("Timer Up")
@@ -152,6 +156,10 @@ def disconnect():
 @app.route("/result.html")
 def have_Won():
     return render_template("result.html")
+
+@app.route("/nowinner.html")
+def no_Winner():
+    return render_template("nowinner.html")
 
 
 if __name__ == "__main__":

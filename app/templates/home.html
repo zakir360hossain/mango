@@ -222,6 +222,9 @@
             display = document.querySelector("#time");
             startTimer(fourtyFiveSeconds, display);
         })
+        socket.on("noWinner",()=>{
+            window.location.href = "/nowinner.html"
+        })
         socket.on("endGame",(currentUser)=>{
             someoneHasWon = true;
             window.location.href = "/result.html"+"?winner="+currentUser
