@@ -171,13 +171,13 @@
                                 $("#username").css({display: "none"})
                                 $("#submitButton").css({display: "none"})
                                 $("#userLabel").css({display: "none"})
-                                
+
                                 socket.emit("playerReady", currentUser);
                             }
                             else {
                                 errorMessage();
                                 document.getElementById("username").value = NULL;
-                                
+
                             }
 
                         })
@@ -201,13 +201,16 @@
                         } else
                         {
                             $(e.target).addClass("pulse");
+                            setTimeout(function() {
+                            $(e.target).removeClass("pulse");
+                            }, 800);
                         }
                         socket.emit('clicked');
                         changeNoneCorrectCursor("none");
                         checkBlackout("none");
                     });
 
-                    
+
 
                });
 
