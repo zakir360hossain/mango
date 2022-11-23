@@ -62,13 +62,16 @@
     <div id="container">
         <div id="badge-container">
         </div>
+        <div>
+            <h1></h1>
+        </div>
         <div id="result"></div>
     </div>
     <script>
         $(document).ready(() =>
         {
             let winner = new URL(location.href).searchParams.get('winner')
-            $("#result").text("No one wins.")
+            $("#result").text("No one wins. The clues ran out!")
         })
     </script>
 </body>
