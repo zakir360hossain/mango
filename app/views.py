@@ -129,7 +129,7 @@ def connect():
     # need to increment when we submit a username, not when we connect
 
     if numberOfClients == 1:
-        getCategoryData("numbers")
+        getCategoryData("words")
 
     global setOfWords
 
@@ -163,5 +163,5 @@ def no_Winner():
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, debug=True)
     client.close()
