@@ -72,7 +72,7 @@
         const objects = document.getElementsByClassName("object");
         const clue_container = document.getElementById("clue");
         const next_clue = document.getElementById("next_clue");
-        const socket = io.connect("http://127.0.0.1:5000");
+        const socket = io.connect(location.protocol + "//" + location.host);
         var someoneHasWon = false;
         let current = null;
         let wordsPairs=[];
@@ -97,8 +97,6 @@
                 });
             });
         }
-
-
 
         function checkWinning(state)
         {
@@ -176,8 +174,7 @@
                             }
                             else {
                                 errorMessage();
-                                document.getElementById("username").value = NULL;
-
+                                document.getElementById("username").value = "";
                             }
 
                         })
@@ -209,8 +206,6 @@
                         changeNoneCorrectCursor("none");
                         checkBlackout("none");
                     });
-
-
 
                });
 
@@ -286,7 +281,6 @@
             }, 1000);
             //clearInterval(realtimer);
         }
-
 
         socket.on('transferData', (words,currentClueObject)=>{
                 if (wordsPairs.length==0){
