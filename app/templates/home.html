@@ -232,23 +232,23 @@
         })
 
         //creating a timer
-        function startTimer(duration, display)
+        function startTimer(length, display)
         {
             if(realtimer) {
                 clearInterval(realtimer);
             }
-            let timer = duration,
-                minutes,
-                seconds;
+            let timer = length,
+                min,
+                sec;
             realtimer = setInterval(function ()
             {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
+                min = parseInt(timer / 60, 10);
+                sec = parseInt(timer % 60, 10);
 
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
+                min = min < 10 ? "0" + min : min;
+                sec = sec < 10 ? "0" + sec : sec;
 
-                display.textContent = minutes + ":" + seconds;
+                display.textContent = min + ":" + sec;
 
                 // checks correct answer if the guess is made before time runs out --> will set
                 //timer to 0 once guess is made + colors the board
@@ -263,8 +263,7 @@
                         $(e.target).addClass("pulse");
                     }
                     changeNoneCorrectCursor("none");
-                    timer = duration;
-                    //realtimer.style.display = 'none';
+                    timer = length;
                 });
                 //if time runs out, cycles to next clue.
                 //code taken from previous next button clicked logic
@@ -272,14 +271,10 @@
                 {
                     clearInterval(realtimer);
                     socket.emit("Timer Up");
-                    //timer = duration
 
                     realtimer.style.display = 'none';
-                    //realtimer.style.display = 'none';
-                    //changeNoneCorrectCursor("none");
                 }
             }, 1000);
-            //clearInterval(realtimer);
         }
 
         socket.on('transferData', (words,currentClueObject)=>{
